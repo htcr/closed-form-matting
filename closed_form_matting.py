@@ -180,6 +180,7 @@ def main():
     )
     args = arg_parser.parse_args()
 
+    print(args.image)
     image = cv2.imread(args.image, cv2.IMREAD_COLOR) / 255.0
 
     if args.scribbles:
