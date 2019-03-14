@@ -4,7 +4,7 @@ import numpy as np
 from closed_form_matting import closed_form_matting_with_trimap
 
 
-def do_matting(image, trimap, max_size=2000, confidence=50.0):
+def do_matting(image, trimap, max_size=2000, confidence=100.0):
     assert image.shape[0:2] == trimap.shape[0:2]
     ori_h, ori_w = image.shape[0:2]
     scale = max_size / max(ori_h, ori_w)
@@ -27,5 +27,5 @@ if __name__ == '__main__':
     image = cv2.imread('image.png', cv2.IMREAD_COLOR)
     trimap = cv2.imread('trimap.png', cv2.IMREAD_GRAYSCALE)
     alpha = do_matting(image, trimap)
-    #alpha[alpha > 50] = 255
+    alpha = np.where(alpha > 20, 255, 0)
     cv2.imwrite('out2.png', alpha)
